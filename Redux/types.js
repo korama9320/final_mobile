@@ -1,0 +1,10 @@
+export const products = "products";
+export const produce = "produce";
+export const pagenate = "pagenate";
+export const increment = "increment";
+export const decrement = "decrement";
+export const addToCart = "addToCart";
+export const checkout = "checkout";
+export const search = "search";
+export const sort = "sort";
+export const user = "user";
