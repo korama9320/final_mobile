@@ -6,8 +6,18 @@ import Ecom from "./Ecom";
 import Profile from "./profile";
 import { Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Icon, withBadge } from "@rneui/themed";
+import { color } from "react-native-reanimated";
+import { useSelector } from "react-redux";
 
 function Tab() {
+  let cartt = useSelector((state) => state.cartReducer.cart);
+  let x = 0;
+  for (let i of cartt) {
+    x += i.count;
+  }
+  const BadgedIcon = withBadge(x)(Icon);
+
   const Tab = createBottomTabNavigator();
   const TabTheme = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
@@ -56,7 +66,13 @@ function Tab() {
               }}
               style={{ marginRight: 20 }}
             >
-              <Entypo name={"shopping-basket"} size={25} color={"#ff5733"} />
+              <BadgedIcon
+                type="entypo"
+                name="shopping-basket"
+                color="#ff5733"
+                size={30}
+                containerStyle={{ left: -5 }}
+              />
             </Text>
           ),
           headerLeft: () => (

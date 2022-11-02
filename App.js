@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Tab from "./Screens/Tab";
 import Cart from "./Screens/Cart";
 import DrawerEcom from "./Screens/DrawerEcom";
+import { store } from "./Redux/store";
+import { Provider } from "react-redux";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -22,17 +24,19 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Tab}
-          options={{ headerBackVisible: false, headerShown: false }}
-        ></Stack.Screen>
-        <Stack.Screen name="Cart" component={Cart}></Stack.Screen>
-        <Stack.Screen name="Filter" component={DrawerEcom}></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Tab}
+            options={{ headerBackVisible: false, headerShown: false }}
+          ></Stack.Screen>
+          <Stack.Screen name="Cart" component={Cart}></Stack.Screen>
+          <Stack.Screen name="Filter" component={DrawerEcom}></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
