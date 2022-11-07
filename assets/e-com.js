@@ -4,7 +4,7 @@ export default [
     category: "bottles",
     quantity: 27,
     brand: "Active",
-    image: ["/public/products/bottel1.jpg"],
+    image: [require("../assets/images/bottel1.jpg")],
     price: 450,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -18,7 +18,7 @@ export default [
     category: "bottles",
     quantity: 30,
     brand: "Active",
-    image: ["/public/products/bottel2.jpg"],
+    image: [require("../assets/images/bottel2.jpg")],
     price: 250,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -31,7 +31,7 @@ export default [
     category: "bottles",
     quantity: 15,
     brand: "Active",
-    image: ["./public/products/bottel3.jpg"],
+    image: [require("../assets/images/bottel3.jpg")],
     price: 350,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -44,7 +44,7 @@ export default [
     category: "bottles",
     quantity: 40,
     brand: "Active",
-    image: ["./public/products/bottel4.jpg"],
+    image: [require("../assets/images/bottel4.jpg")],
     price: 400,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -57,7 +57,7 @@ export default [
     category: "bottles",
     quantity: 12,
     brand: "Active",
-    image: ["./public/products/bottel5.jpg"],
+    image: [require("../assets/images/bottel5.jpg")],
     price: 600,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -70,7 +70,7 @@ export default [
     category: "Supplements",
     quantity: 100,
     brand: "Active",
-    image: ["./public/products/Supplements1.jpg"],
+    image: [require("../assets/images/Supplements1.jpg")],
     price: 150,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -83,7 +83,7 @@ export default [
     category: "Supplements",
     quantity: 90,
     brand: "Active",
-    image: ["./public/products/Supplements2.jpg"],
+    image: [require("../assets/images/Supplements2.jpg")],
     price: 1200,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -96,7 +96,7 @@ export default [
     category: "Supplements",
     quantity: 50,
     brand: "Active",
-    image: ["./public/products/Supplements3.jpg"],
+    image: [require("../assets/images/Supplements3.jpg")],
     price: 1000,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -109,7 +109,7 @@ export default [
     category: "Supplements",
     quantity: 60,
     brand: "Active",
-    image: ["./public/products/Supplements4.jpg"],
+    image: [require("../assets/images/Supplements4.jpg")],
     price: 100,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -123,7 +123,7 @@ export default [
     category: "Supplements",
     quantity: 29,
     brand: "Active",
-    image: ["./public/products/Supplements5.jpg"],
+    image: [require("../assets/images/Supplements5.jpg")],
     price: 65,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -137,7 +137,7 @@ export default [
     category: "Supplements",
     quantity: 46,
     brand: "Active",
-    image: ["./public/products/Supplements6.jpg"],
+    image: [require("../assets/images/Supplements6.jpg")],
     price: 300,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -150,7 +150,7 @@ export default [
     category: "Resistance band",
     quantity: 18,
     brand: "Active",
-    image: ["./public/products/Resistance band1.jpg"],
+    image: [require("../assets/images/Resistanceband1.jpg")],
     price: 60,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -163,7 +163,7 @@ export default [
     category: "Resistance band",
     quantity: 20,
     brand: "Active",
-    image: ["./public/products/Resistance band2.jpg"],
+    image: [require("../assets/images/Resistanceband2.jpg")],
     price: 200,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -176,7 +176,7 @@ export default [
     category: "Resistance band",
     quantity: 7,
     brand: "Active",
-    image: ["./public/products/Resistance band3.jpg"],
+    image: [require("../assets/images/Resistanceband3.jpg")],
     price: 300,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -189,7 +189,7 @@ export default [
     category: "Resistance band",
     quantity: 0,
     brand: "Active",
-    image: ["./public/products/Resistance band4.jpg"],
+    image: [require("../assets/images/Resistanceband4.jpg")],
     price: 120,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -202,7 +202,7 @@ export default [
     category: "Bags",
     quantity: 10,
     brand: "Active",
-    image: ["./public/products/Bags1.jpg"],
+    image: [require("../assets/images/Bags1.jpg")],
     price: 450,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -215,7 +215,7 @@ export default [
     category: "Bags",
     quantity: 5,
     brand: "Active",
-    image: ["./public/products/Bags2.jpg"],
+    image: [require("../assets/images/Bags2.jpg")],
     price: 399,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -228,7 +228,7 @@ export default [
     category: "Bags",
     quantity: 20,
     brand: "Active",
-    image: ["./public/products/Bags3.jpg"],
+    image: [require("../assets/images/Bags3.jpg")],
     price: 250,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -241,7 +241,7 @@ export default [
     category: "Bags",
     quantity: 2,
     brand: "Active",
-    image: ["./public/products/Bags4.jpg"],
+    image: [require("../assets/images/Bags4.jpg")],
     price: 700,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -254,7 +254,7 @@ export default [
     category: "Bags",
     quantity: 8,
     brand: "Active",
-    image: ["./public/products/Bags5.jpg"],
+    image: [require("../assets/images/Bags5.jpg")],
     price: 350,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",
@@ -263,12 +263,11 @@ export default [
     },
   },
   {
-    title:
-      "Brand StActiveores Canvas Gym Bag-Brand StActiveores - Navy & Black",
+    title: "Brand StActiveores Canvas Gym Bag-Brand StActiveores-Navy ",
     category: "Bags",
     quantity: 30,
     brand: "Active",
-    image: ["./public/products/Bags6.jpg"],
+    image: [require("../assets/images/Bags6.jpg")],
     price: 120,
     details: {
       box: "1X 500ml Double-wall Insulated Vacuum Flask Stainless Steel Space Series Coke Thermos For Sport Water Bottles Portable Thermoses",

@@ -184,8 +184,8 @@ function DrawerEcom() {
             style={styles.checkbox}
             value={search.Bags}
             onValueChange={() => {
-              setSeWeightsarch((pre) => {
-                return { ...pre, Bags: !pre.ALL };
+              setSearch((pre) => {
+                return { ...pre, Bags: !pre.Bags };
               });
             }}
             color={"#222"}

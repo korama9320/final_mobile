@@ -1,4 +1,3 @@
-import img from "../assets/Bags1.jpg";
 import {
   StyleSheet,
   Text,
@@ -40,6 +39,7 @@ function Cart() {
           color: "#FFF",
           fontSize: 20,
           textAlign: "center",
+          padding: 10,
         }}
       >
         <Text style={{ color: "#ff5733" }}>T</Text>otal : {x}
@@ -62,9 +62,9 @@ export default Cart;
 const styles = StyleSheet.create({
   apply: {
     backgroundColor: "#222",
-    width: "100%",
+    width: "80%",
     height: 70,
-    borderRadius: 10,
+    borderRadius: 70,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",

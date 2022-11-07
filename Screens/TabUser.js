@@ -5,9 +5,13 @@ import Exercise from "./Excer";
 import Diet from "./Dite";
 import Stats from "./Stats";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { TabActions, useNavigation } from "@react-navigation/native";
 
 function TabUser() {
   const TabUser = createBottomTabNavigator();
+  const Drawer = createDrawerNavigator();
+  const navigation = useNavigation();
   const TabTheme = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
       let iconName;
@@ -33,9 +37,54 @@ function TabUser() {
 
   return (
     <TabUser.Navigator screenOptions={TabTheme}>
-      <TabUser.Screen name="Exercise" component={Exercise}></TabUser.Screen>
-      <TabUser.Screen name="Diet" component={Diet}></TabUser.Screen>
-      <TabUser.Screen name="Stats" component={Stats}></TabUser.Screen>
+      <TabUser.Screen
+        name="Exercise"
+        component={Exercise}
+        options={{
+          headerLeft: () => (
+            <Text
+              onPress={() => {
+                navigation.dispatch(TabActions.jumpTo("GMS"));
+              }}
+              style={{ marginLeft: 20 }}
+            >
+              <Ionicons name={"arrow-back"} size={25} color={"#ff5733"} />
+            </Text>
+          ),
+        }}
+      ></TabUser.Screen>
+      <TabUser.Screen
+        name="Diet"
+        component={Diet}
+        options={{
+          headerLeft: () => (
+            <Text
+              onPress={() => {
+                navigation.dispatch(TabActions.jumpTo("GMS"));
+              }}
+              style={{ marginLeft: 20 }}
+            >
+              <Ionicons name={"arrow-back"} size={25} color={"#ff5733"} />
+            </Text>
+          ),
+        }}
+      ></TabUser.Screen>
+      <TabUser.Screen
+        name="Stats"
+        component={Stats}
+        options={{
+          headerLeft: () => (
+            <Text
+              onPress={() => {
+                navigation.dispatch(TabActions.jumpTo("GMS"));
+              }}
+              style={{ marginLeft: 20 }}
+            >
+              <Ionicons name={"arrow-back"} size={25} color={"#ff5733"} />
+            </Text>
+          ),
+        }}
+      ></TabUser.Screen>
     </TabUser.Navigator>
   );
 }

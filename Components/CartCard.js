@@ -1,4 +1,3 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/types";
@@ -11,38 +10,44 @@ function CartCard(props) {
   return (
     <>
       <View style={style.card}>
-        <Image source={require("../assets/Bags1.jpg")} style={style.img} />
+        <Image source={props.i.image[0]} style={style.img} />
         <View style={{ width: "60%", justifyContent: "space-between" }}>
           <Text style={style.text}>{props.i.title} </Text>
 
-          <Text style={[style.text, { marginStart: 20 }]}>
-            {props.i.price} EGP
-          </Text>
-          <View style={{ flexDirection: "row", marginStart: 15 }}>
-            <Entypo
-              name={"squared-minus"}
-              size={30}
-              color="#ff5733"
-              onPress={() => {
-                dispatch(decount(props.i));
-              }}
-            />
-            <Text
-              style={[
-                style.text,
-                { position: "relative", bottom: 9, fontSize: 20 },
-              ]}
-            >
-              {props.i.count}
-            </Text>
-            <Entypo
-              name={"squared-plus"}
-              size={30}
-              color="#ff5733"
-              onPress={() => {
-                dispatch(incount(props.i));
-              }}
-            />
+          <View
+            style={{
+              flexDirection: "row",
+              marginStart: 15,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={style.text}>{props.i.price} EGP</Text>
+            <View style={{ flexDirection: "row", marginEnd: 10 }}>
+              <Entypo
+                name={"squared-minus"}
+                size={30}
+                color="#ff5733"
+                onPress={() => {
+                  dispatch(decount(props.i));
+                }}
+              />
+              <Text
+                style={[
+                  style.text,
+                  { position: "relative", bottom: 9, fontSize: 20 },
+                ]}
+              >
+                {props.i.count}
+              </Text>
+              <Entypo
+                name={"squared-plus"}
+                size={30}
+                color="#ff5733"
+                onPress={() => {
+                  dispatch(incount(props.i));
+                }}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -55,7 +60,7 @@ export default CartCard;
 const style = StyleSheet.create({
   card: {
     width: "90%",
-    height: 160,
+    height: 120,
     marginVertical: "2%",
     marginHorizontal: "5%",
     borderBottomRightRadius: 10,
@@ -65,6 +70,11 @@ const style = StyleSheet.create({
     flex: 1,
     overflow: "hidden",
   },
-  img: { width: "40%", height: "100%", borderTopLeftRadius: 10 },
+  img: {
+    width: "40%",
+    height: "100%",
+    borderTopLeftRadius: 10,
+    resizeMode: "stretch",
+  },
   text: { color: "#fff", margin: 10, fontSize: 15 },
 });

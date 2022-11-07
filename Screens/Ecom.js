@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  FlatList,
-  TextInput,
-} from "react-native";
+import { StyleSheet, View, FlatList, TextInput } from "react-native";
 import prod from "../assets/e-com";
 import Card from "../Components/Card";
 import { Ionicons } from "@expo/vector-icons";
@@ -83,6 +76,13 @@ function Ecom() {
         numColumns={2}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => <Card i={item} />}
+        contentContainerStyle={{
+          width: "100%",
+        }}
+        columnWrapperStyle={{
+          justifyContent: "space-around",
+          marginBottom: "5%",
+        }}
       ></FlatList>
     </View>
   );
@@ -92,8 +92,10 @@ export default Ecom;
 
 const style = StyleSheet.create({
   Flat: {
+    flex: 1,
     alignItems: "center",
-    marginBottom: 100,
+    // marginBottom: 100,
+    justifyContent: "center",
   },
   search: {
     width: "90%",
