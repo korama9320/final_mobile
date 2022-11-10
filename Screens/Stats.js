@@ -3,6 +3,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   TextInput,
   TouchableOpacity,
@@ -12,16 +13,46 @@ import { Text } from "react-native";
 import { useState } from "react";
 import { setuser } from "../Redux/Actions/userAction";
 import { useNavigation } from "@react-navigation/native";
+import { Field, useFormik } from "formik";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { MyIp } from "../constants";
 function Stats() {
   const dispatch = useDispatch();
   let user = useSelector((state) => state.userReducer.user);
   let [active, setActive] = useState(0);
+  const Token = AsyncStorage.getItem("token");
 
   const navigation = useNavigation();
+  const statistics = useFormik({
+    initialValues: {
+      gender: user.gender,
+      weight: user.weight,
+      height: user.height,
+      age: user.age,
+      fat: "",
+    },
+    onSubmit: (values) => {
+      axios
+        .patch(
+          `${MyIp}/api/v1/users/update`,
+          { ...values, email: user.email },
+          {
+            headers: { authorization: Token },
+          }
+        )
+        .then(() => {
+          dispatch(setuser(values));
 
+          navigation.navigate("Calculated", { act: active });
+        })
+        .catch("error");
+    },
+  });
   return (
     <ScrollView style={{ flex: 1 }}>
       {/* ///////////////////////////////////////////////gender////////////////////////////////////// */}
+      {/* <StatusBar></StatusBar> */}
 
       <View style={styles.titles}>
         <Text style={{ marginTop: 10 }}>
@@ -39,6 +70,7 @@ function Stats() {
           ]}
           onPress={() => {
             dispatch(setuser({ gender: "male" }));
+            statistics.setFieldValue("gender", "male");
           }}
         >
           <MaterialCommunityIcons name="gender-male" color={"#222"} size={55} />
@@ -53,6 +85,7 @@ function Stats() {
           ]}
           onPress={() => {
             dispatch(setuser({ gender: "female" }));
+            statistics.setFieldValue("gender", "female");
           }}
         >
           <MaterialCommunityIcons
@@ -81,9 +114,7 @@ function Stats() {
               keyboardType="numeric"
               cursorColor="#ff5733"
               style={{ color: "#222", fontSize: 55 }}
-              onChangeText={(value) => {
-                dispatch(setuser({ weight: value }));
-              }}
+              onChangeText={statistics.handleChange("weight")}
             >
               <Text style={{ fontSize: 55 }}>{user.weight}</Text>
             </TextInput>
@@ -102,9 +133,7 @@ function Stats() {
               keyboardType="numeric"
               cursorColor="#ff5733"
               style={{ color: "#222", fontSize: 55 }}
-              onChangeText={(value) => {
-                dispatch(setuser({ height: value }));
-              }}
+              onChangeText={statistics.handleChange("height")}
             >
               <Text style={{ fontSize: 55 }}>{user.height}</Text>
             </TextInput>
@@ -128,9 +157,7 @@ function Stats() {
             keyboardType="numeric"
             cursorColor="#ff5733"
             style={{ color: "#222", fontSize: 55 }}
-            onChangeText={(value) => {
-              dispatch(setuser({ age: value }));
-            }}
+            onChangeText={statistics.handleChange("age")}
           >
             <Text style={{ fontSize: 55 }}>{user.age}</Text>
           </TextInput>
@@ -150,9 +177,7 @@ function Stats() {
             keyboardType="numeric"
             cursorColor="#ff5733"
             style={{ color: "#222", fontSize: 55 }}
-            onChangeText={(value) => {
-              dispatch(setuser({ fat: value }));
-            }}
+            onChangeText={statistics.handleChange("fat")}
           >
             <Text style={{ fontSize: 55 }}>{user.fat}</Text>
           </TextInput>
@@ -164,7 +189,7 @@ function Stats() {
         <Text>
           <MaterialCommunityIcons
             name="weight-lifter"
-            color={"#ddd"}
+            color={"#ff5733"}
             size={20}
           />
           Activity Level
@@ -172,7 +197,11 @@ function Stats() {
       </View>
 
       {/* ///////////////////////////SCROLL///////////////////////////////////// */}
-      <ScrollView horizontal style={styles.activity}>
+      <ScrollView
+        horizontal
+        style={styles.activity}
+        showsHorizontalScrollIndicator={false}
+      >
         <TouchableOpacity
           style={[styles.card1, active == 1.2 && { backgroundColor: "#ddd" }]}
           onPress={() => {
@@ -311,12 +340,7 @@ function Stats() {
       </ScrollView>
       {/* ///////////////////////////////////////////////CALCULATE////////////////////////////////////// */}
 
-      <TouchableOpacity
-        style={styles.calc}
-        onPress={() => {
-          navigation.navigate("Calculated", { act: active });
-        }}
-      >
+      <TouchableOpacity style={styles.calc} onPress={statistics.handleSubmit}>
         <Text style={{ color: "#ff5733", fontSize: 20 }}>CALCULATE</Text>
       </TouchableOpacity>
     </ScrollView>
@@ -378,7 +402,7 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: "#bbb",
     borderRadius: 10,
-    margin: 7,
+    margin: 20,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",

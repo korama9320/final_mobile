@@ -9,27 +9,47 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import CartCard from "../Components/CartCard.js";
+import { MyIp } from "../constants.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { checkoutt } from "../Redux/Actions/productsAction.js";
+import { useEffect } from "react";
+
 function Cart() {
   const dispatch = useDispatch();
   let cartt = useSelector((state) => state.cartReducer.cart);
   let x = 0;
   let user = useSelector((state) => state.userReducer.user);
+
   for (let i of cartt) {
     x += i.price * i.count;
   }
   function checkout() {
-    if (user.email) {
-      axios.post("http://localhost:8000/api/v1/users/placeorder", {
-        email: user.email,
-      });
+    if ((user.email, user.address, user.phoneNumber)) {
+      axios
+        .post(`${MyIp}/api/v1/users/placeorder`, {
+          email: user.email,
+        })
+        .then((res) => {
+          dispatch(checkoutt());
+          alert("Your order has been placed successfuly");
+        });
+    } else {
+      alert("Please fill in your phone number and address");
     }
   }
-  // useEffect(() => {
-  //   axios.post("http://localhost:8000/api/v1/users/update", {
-  //     email: user.email,
-  //     cart: cartt,
-  //   });
-  // }, [cartt]);
+  const token = AsyncStorage.getItem("token");
+
+  useEffect(() => {
+    console.log(cartt);
+    axios.patch(
+      `${MyIp}/api/v1/users/update`,
+      {
+        email: user.email,
+        cart: cartt,
+      },
+      { headers: { authorization: token } }
+    );
+  }, [cartt]);
   return (
     <>
       <Text
@@ -50,6 +70,7 @@ function Cart() {
         numColumns={1}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => <CartCard i={item} />}
+        showsVerticalScrollIndicator={false}
       ></FlatList>
       <TouchableOpacity style={styles.apply} onPress={checkout}>
         <Text style={{ color: "#ff5733", fontSize: 30 }}>CheckOut</Text>

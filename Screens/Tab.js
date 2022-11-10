@@ -4,11 +4,12 @@ import TabUser from "./TabUser";
 import Home from "./Home";
 import Ecom from "./Ecom";
 import Profile from "./profile";
-import { Entypo, Feather } from "@expo/vector-icons";
+import { Entypo, Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Icon, withBadge } from "@rneui/themed";
 import { color } from "react-native-reanimated";
 import { useSelector } from "react-redux";
+import Stats from "./Stats";
 
 function Tab() {
   let cartt = useSelector((state) => state.cartReducer.cart);
@@ -26,9 +27,10 @@ function Tab() {
       if (route.name === "GMS") {
         iconName = "home";
         size = focused ? 30 : 20;
-      } else if (route.name === "Plan") {
-        iconName = "calendar";
+      } else if (route.name === "Stats") {
+        iconName = "stats-chart";
         size = focused ? 30 : 20;
+        return <Ionicons name={iconName} size={size} color={color} />;
       } else if (route.name === "E-com") {
         iconName = "shop";
         size = focused ? 30 : 20;
@@ -44,16 +46,17 @@ function Tab() {
   const navigation = useNavigation();
 
   return (
-    <Tab.Navigator screenOptions={TabTheme}>
-      <Tab.Screen name="GMS" component={Home}></Tab.Screen>
+    <Tab.Navigator screenOptions={TabTheme} initialRouteName="GMS">
       <Tab.Screen
-        name="Plan"
+        name="GMS"
         component={TabUser}
-        options={{
-          headerBackVisible: false,
-          headerShown: false,
-          tabBarStyle: { display: "none" },
-        }}
+        options={{ headerBackVisible: false, headerShown: false }}
+      ></Tab.Screen>
+
+      <Tab.Screen
+        name="Stats"
+        component={Stats}
+        options={{ headerBackVisible: false, headerShown: false }}
       ></Tab.Screen>
       <Tab.Screen
         name="E-com"
@@ -87,7 +90,11 @@ function Tab() {
           ),
         }}
       ></Tab.Screen>
-      <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{ headerBackVisible: false, headerShown: false }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 }

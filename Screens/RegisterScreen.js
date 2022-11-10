@@ -18,135 +18,11 @@ import axios from "axios";
 import { Formik, useFormik } from "formik";
 import Loader from "../Components/Loader";
 import { MyIp } from "../constants";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 const Register = (props) => {
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState("");
   const [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
-
-  // const emailInputRef = createRef();
-  // const ageInputRef = createRef();
-  // const addressInputRef = createRef();
-  // const passwordInputRef = createRef();
-
-  // const handleSubmitButton = () => {
-  //   setErrortext("");
-  //   if (!userName) {
-  //     alert("Please fill Name");
-  //     return;
-  //   }
-  //   if (!userEmail) {
-  //     alert("Please fill Email");
-  //     return;
-  //   }
-  //   if (!userAge) {
-  //     alert("Please fill Age");
-  //     return;
-  //   }
-  //   if (!userAddress) {
-  //     alert("Please fill Address");
-  //     return;
-  //   }
-  //   if (!userPassword) {
-  //     alert("Please fill Password");
-  //     return;
-  //   }
-  //   //Show Loader
-  //   setLoading(true);
-  //   var dataToSend = {
-  //     name: userName,
-  //     email: userEmail,
-  //     age: userAge,
-  //     address: userAddress,
-  //     password: userPassword,
-  //   };
-  //   var formBody = [];
-  //   for (var key in dataToSend) {
-  //     var encodedKey = encodeURIComponent(key);
-  //     var encodedValue = encodeURIComponent(dataToSend[key]);
-  //     formBody.push(encodedKey + "=" + encodedValue);
-  //   }
-  //   formBody = formBody.join("&");
-
-  //   fetch(`${MyIp}api/user/register`, {
-  //     method: "POST",
-  //     body: formBody,
-  //     headers: {
-  //       //Header Defination
-  //       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((responseJson) => {
-  //       //Hide Loader
-  //       setLoading(false);
-  //       console.log(responseJson);
-  //       // If server response message same as Data Matched
-  //       if (responseJson.status === "success") {
-  //         setIsRegistraionSuccess(true);
-  //         console.log("Registration Successful. Please Login to proceed");
-  //       } else {
-  //         setErrortext(responseJson.msg);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       //Hide Loader
-  //       setLoading(false);
-  //       console.error(error);
-  //     });
-  // };
-  // if (isRegistraionSuccess) {
-  //   return (
-  //     <View
-  //       style={{
-  //         flex: 1,
-  //         backgroundColor: "#307ecc",
-  //         justifyContent: "center",
-  //       }}
-  //     >
-  //       {/* ///////////// */}
-  //       <View
-  //         style={{
-  //           position: "absolute",
-  //           flex: 1,
-  //           width: "100%",
-  //           height: "100%",
-  //           backgroundColor: "#22222299",
-  //           zIndex: 0,
-  //         }}
-  //       ></View>
-  //       <Image
-  //         source={require("../assets/login.jpg")}
-  //         style={{
-  //           position: "absolute",
-
-  //           flex: 1,
-  //           width: "100%",
-  //           height: "100%",
-  //           resizeMode: "cover",
-  //           zIndex: -1,
-  //         }}
-  //       />
-  //       {/* //////////////////// */}
-  //       <Image
-  //         source={require("../assets/icon.png")}
-  //         style={{
-  //           height: 150,
-  //           resizeMode: "contain",
-  //           alignSelf: "center",
-  //         }}
-  //       />
-  //       <Text style={styles.successTextStyle}>Registration Successful</Text>
-  //       <TouchableOpacity
-  //         style={styles.buttonStyle}
-  //         activeOpacity={0.5}
-  //         onPress={() => props.navigation.navigate("LoginScreen")}
-  //       >
-  //         <Text style={styles.buttonTextStyle}>Login Now</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // }
   const register = useFormik({
     initialValues: {
       firstName: "",
@@ -173,9 +49,10 @@ const Register = (props) => {
     onSubmit: (values) => {
       setLoading(true);
 
-      axios
-        .post(`${MyIp}/api/v1/users/register`, values)
-        .then(setLoading(false), navigation.navigate("Login"));
+      axios.post(`${MyIp}/api/v1/users/register`, values).then((res) => {
+        console.log(res);
+        setLoading(false), navigation.navigate("Login");
+      });
     },
   });
   const navigation = useNavigation();
@@ -239,9 +116,6 @@ const Register = (props) => {
               placeholderTextColor="#ff5733bb"
               autoCapitalize="sentences"
               returnKeyType="next"
-              // onSubmitEditing={() =>
-              //   emailInputRef.current && emailInputRef.current.focus()
-              // }
               blurOnSubmit={false}
             />
           </View>
@@ -253,11 +127,7 @@ const Register = (props) => {
               underlineColorAndroid="#f000"
               placeholder="Enter lastName"
               placeholderTextColor="#ff5733bb"
-              // ref={emailInputRef}
               returnKeyType="next"
-              // onSubmitEditing={() =>
-              //   passwordInputRef.current && passwordInputRef.current.focus()
-              // }
               blurOnSubmit={false}
             />
           </View>
@@ -270,11 +140,7 @@ const Register = (props) => {
               placeholder="Enter Email"
               placeholderTextColor="#ff5733bb"
               keyboardType="email-address"
-              // ref={passwordInputRef}
               returnKeyType="next"
-              // onSubmitEditing={() =>
-              //   ageInputRef.current && ageInputRef.current.focus()
-              // }
               blurOnSubmit={false}
             />
           </View>
@@ -286,12 +152,8 @@ const Register = (props) => {
               underlineColorAndroid="#f000"
               placeholder="Enter Password"
               placeholderTextColor="#ff5733bb"
-              // ref={ageInputRef}
               secureTextEntry={true}
               returnKeyType="next"
-              // onSubmitEditing={() =>
-              //   addressInputRef.current && addressInputRef.current.focus()
-              // }
               blurOnSubmit={false}
             />
           </View>
@@ -304,8 +166,17 @@ const Register = (props) => {
             activeOpacity={0.5}
             onPress={register.handleSubmit}
           >
-            <Text style={styles.buttonTextStyle}>REGISTER</Text>
+            <Text style={styles.buttonTextStyle}>LogIn</Text>
           </TouchableOpacity>
+          <Text style={styles.registerTextStyle}>
+            Go Back ?
+            <Text
+              style={styles.register}
+              onPress={() => navigation.dispatch(StackActions.pop())}
+            >
+              Log In
+            </Text>
+          </Text>
         </KeyboardAvoidingView>
       </ScrollView>
     </View>
@@ -360,5 +231,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     padding: 30,
+  },
+  register: {
+    color: "#FF5733",
+  },
+  registerTextStyle: {
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 14,
+    alignSelf: "center",
+    padding: 10,
   },
 });

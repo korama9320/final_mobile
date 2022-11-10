@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Checkbox from "expo-checkbox";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useState } from "react";
+import {useState } from "react";
 import Slider from "@react-native-community/slider";
 import { setProduce } from "../Redux/Actions/productsAction";
 import { StackActions, useNavigation } from "@react-navigation/native";
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   paragraph: {
-    color: "#fff",
+    color: "#222",
     fontSize: 15,
   },
   checkbox: {

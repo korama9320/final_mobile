@@ -8,3 +8,5 @@ export const checkout = "checkout";
 export const search = "search";
 export const sort = "sort";
 export const user = "user";
+export const cart = "cart";
+export const resetuser = "resetuser";

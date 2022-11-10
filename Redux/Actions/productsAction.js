@@ -5,6 +5,8 @@ import {
   addToCart,
   increment,
   decrement,
+  checkout,
+  cart,
 } from "../types";
 
 export function setProducts(data) {
@@ -42,6 +44,19 @@ export function incount(data) {
 export function decount(data) {
   return {
     type: decrement,
+    payload: data,
+  };
+}
+
+export function checkoutt() {
+  return {
+    type: checkout,
+  };
+}
+
+export function setcart(data) {
+  return {
+    type: cart,
     payload: data,
   };
 }

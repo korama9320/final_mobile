@@ -1,4 +1,4 @@
-import { addToCart, increment, decrement, checkout } from "../types";
+import { addToCart, increment, decrement, checkout, cart } from "../types";
 
 export function cartReducer(state = { cart: [] }, action) {
   switch (action.type) {
@@ -36,8 +36,13 @@ export function cartReducer(state = { cart: [] }, action) {
         return { ...state, cart: [{ ...x[0], count: x[0].count - 1 }, ...y] };
       }
     }
-    case checkout:
-      break;
+    case checkout: {
+      return { ...state, cart: [] };
+    }
+
+    case cart: {
+      return { ...state, cart: [...action.payload] };
+    }
     default:
       return { ...state };
   }

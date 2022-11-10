@@ -1,15 +1,18 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { MyIp } from "../constants";
 import { addtoCart, decount } from "../Redux/Actions/productsAction";
+
 function Card(props) {
   const dispatch = useDispatch();
   let cartt = useSelector((state) => state.cartReducer.cart);
   let x = cartt.find((item) => item.title == props.i.title);
+
   return (
     <>
       <View style={style.card}>
-        <Image source={props.i.image[0]} style={style.img} />
+        <Image source={{ uri: MyIp + props.i.image[0] }} style={style.img} />
         <Text style={style.text}>{props.i.title} </Text>
         <View
           style={{

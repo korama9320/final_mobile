@@ -24,19 +24,19 @@ function DietDetails({ route }) {
         style={styles.img}
       />
       <View style={styles.textcon}>
-        <Text style={styles.text1}>Meal : </Text>
+        <Text style={styles.text1}>Meal</Text>
         <Text style={styles.text}>{i.foodTime}</Text>
       </View>
       <View style={styles.textcon}>
-        <Text style={styles.text1}>Name : </Text>
+        <Text style={styles.text1}>Name</Text>
         <Text style={styles.text}>{i.foodName}</Text>
       </View>
       <View style={styles.textcon}>
-        <Text style={styles.text1}>Date : </Text>
+        <Text style={styles.text1}>Date</Text>
         <Text style={styles.text}>{new Date(i.date).toDateString()}</Text>
       </View>
       <View style={styles.textcon}>
-        <Text style={styles.text1}>Ingredients : </Text>
+        <Text style={styles.text1}>Ingredients</Text>
         <Text style={styles.text}>{i.ingredients}</Text>
       </View>
     </ScrollView>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   text: {
     width: "100%",
     fontSize: 20,
-    color: "#ff5733",
+    color: "#222",
     marginHorizontal: "3%",
     padding: "3%",
     backgroundColor: "#eee",

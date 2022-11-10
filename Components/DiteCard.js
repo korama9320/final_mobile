@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: "flex-start",
     textAlignVertical: "center",
-    backgroundColor: "#666",
+    backgroundColor: "#444",
     paddingHorizontal: 10,
     color: "#fff",
     width: "100%",

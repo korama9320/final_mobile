@@ -7,13 +7,19 @@ import Tab from "./Screens/Tab";
 import Cart from "./Screens/Cart";
 import DrawerEcom from "./Screens/DrawerEcom";
 import { store } from "./Redux/store";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import Calculate from "./Screens/Calculation";
 import ExercDetails from "./Screens/ExercDetails";
 import DietDetails from "./Screens/DiteDetails";
 import Login from "./Screens/LoginScreen";
 import Register from "./Screens/RegisterScreen";
 import Splash from "./Screens/SplashScreen";
+import { useEffect } from "react";
+import axios from "axios";
+import { MyIp } from "./constants";
+import Premium from "./Screens/premium";
+import Standard from "./Screens/standard";
+import Basic from "./Screens/basic";
 export default function App() {
   const Stack = createNativeStackNavigator();
   const MyTheme = {
@@ -27,11 +33,10 @@ export default function App() {
       notification: "rgb(255, 69, 58)",
     },
   };
-
   return (
     <Provider store={store}>
       <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen
             name="Splash"
             component={Splash}
@@ -63,6 +68,9 @@ export default function App() {
             name="Diet-Details"
             component={DietDetails}
           ></Stack.Screen>
+          <Stack.Screen name="Premium" component={Premium}></Stack.Screen>
+          <Stack.Screen name="Standard" component={Standard}></Stack.Screen>
+          <Stack.Screen name="Basic" component={Basic}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

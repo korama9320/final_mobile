@@ -2,21 +2,48 @@ import React, { useState, useEffect } from "react";
 import { ActivityIndicator, View, StyleSheet, Image, Text } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const Splash = ({ navigation }) => {
+import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { MyIp } from "../constants";
+import { setuser } from "../Redux/Actions/userAction";
+import { useDispatch } from "react-redux";
+import { setcart } from "../Redux/Actions/productsAction";
+const Splash = () => {
   //State for ActivityIndicator animation
   const [animating, setAnimating] = useState(true);
-
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   useEffect(() => {
-    setTimeout(() => {
+    setTimeout(async () => {
       setAnimating(false);
-      //Check if user_id is set or not
-      //If not then send for Authentication
-      //else send to Home Screen
-      AsyncStorage.getItem("user_id").then((value) =>
-        navigation.replace(value === null ? "Login" : "Login")
-      );
-    }, 3000);
+      let gemail = await AsyncStorage.getItem("gemail");
+      try {
+        await AsyncStorage.getItem("token").then((value) => {
+          if (value === null) {
+            navigation.navigate("Login");
+          } else {
+            axios
+              .post(
+                `${MyIp}/api/v1/users/gateway`,
+                { email: gemail },
+                { headers: { authorization: value } }
+              )
+              .then((res) => {
+                if (res.status === 200) {
+                  console.log(res.data);
+                  dispatch(setuser(res.data));
+                  dispatch(setcart(res.data.cart));
+                  navigation.navigate("Home");
+                } else {
+                  navigation.navigate("Login");
+                }
+              });
+          }
+        });
+      } catch {
+        console.log("login");
+      }
+    }, 4000);
   }, []);
 
   return (

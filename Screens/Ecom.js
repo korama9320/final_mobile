@@ -1,19 +1,22 @@
 import { StyleSheet, View, FlatList, TextInput } from "react-native";
-import prod from "../assets/e-com";
 import Card from "../Components/Card";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { setProducts, setProduce } from "../Redux/Actions/productsAction";
+import { MyIp } from "../constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Ecom() {
   let [input, setInput] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setProducts(prod));
-  }, [dispatch]);
+    axios.get(`${MyIp}/api/v1/products/`).then((res) => {
+      dispatch(setProducts(res.data));
+    });
+  }, [produce]);
 
   const products = useSelector((state) => state.productReducer.products);
   useEffect(() => {
@@ -25,12 +28,17 @@ function Ecom() {
   const produce = useSelector((state) => state.produceReducer.produce);
   let user = useSelector((state) => state.userReducer.user);
   let cartt = useSelector((state) => state.cartReducer.cart);
-  // useEffect(() => {
-  //   axios.post("http://localhost:8000/api/v1/users/update", {
-  //     email: user.email,
-  //     cart: cartt,
-  //   });
-  // }, [cartt]);
+  const token = AsyncStorage.getItem("token");
+  useEffect(() => {
+    axios.patch(
+      `${MyIp}/api/v1/users/update`,
+      {
+        email: user.email,
+        cart: cartt,
+      },
+      { headers: { authorization: token } }
+    );
+  }, [cartt]);
   function search() {
     const val = input.toLowerCase();
     let reg = new RegExp(val);
@@ -79,6 +87,7 @@ function Ecom() {
         contentContainerStyle={{
           width: "100%",
         }}
+        showsVerticalScrollIndicator={false}
         columnWrapperStyle={{
           justifyContent: "space-around",
           marginBottom: "5%",

@@ -15,70 +15,22 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as yup from "yup";
 import axios from "axios";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import Loader from "../Components/Loader";
 import { MyIp } from "../constants";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setuser } from "../Redux/Actions/userAction";
+import { setcart } from "../Redux/Actions/productsAction";
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [errortext, setErrortext] = useState("");
-
-  // const passwordInputRef = createRef();
-
-  // const handleSubmitPress = () => {
-  // setErrortext("");
-  // if (!userEmail) {
-  //   alert("Please fill Email");
-  //   return;
-  // }
-  // if (!userPassword) {
-  //   alert("Please fill Password");
-  //   return;
-  // }
-  // setLoading(true);
-  // let dataToSend = { email: userEmail, password: userPassword };
-  // let formBody = [];
-  // for (let key in dataToSend) {
-  //   let encodedKey = encodeURIComponent(key);
-  //   let encodedValue = encodeURIComponent(dataToSend[key]);
-  //   formBody.push(encodedKey + "=" + encodedValue);
-  // }
-  // formBody = formBody.join("&");
-
-  //   fetch(`${MyIp}api/user/login`, {
-  //     method: "POST",
-  //     body: formBody,
-  //     headers: {
-  //       //Header Defination
-  //       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((responseJson) => {
-  //       //Hide Loader
-  //       setLoading(false);
-  //       console.log(responseJson);
-  //       // If server response message same as Data Matched
-  //       if (responseJson.status === "ok") {
-  //         AsyncStorage.setItem("user_id", responseJson.data.email);
-  //         console.log(responseJson.data.email);
-  //         navigation.replace("DrawerNavigationRoutes");
-  //       } else {
-  //         setErrortext(responseJson.msg);
-  //         console.log("Please check your email id or password");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       //Hide Loader
-  //       setLoading(false);
-  //       console.error(error);
-  //     });
-  // };
+  const dispatch = useDispatch();
   const login = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
+
     validationSchema: yup.object({
       email: yup.string().email("Invalid email address").required("Required"),
       password: yup
@@ -88,15 +40,18 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       setLoading(true);
-      axios.post(`${MyIp}'/api/v1/users/login`, values).then((res) => {
+      axios.post(`${MyIp}/api/v1/users/login`, values).then((res) => {
         setLoading(false);
-        if (res.status === "ok") {
-          // AsyncStorage.setItem("user_id", res.data.email);
-          // console.log(responseJson.data.email);
-          // navigation.replace("DrawerNavigationRoutes");
-          navigation.navigate("Home");
+        console.log(res);
+        if (res.status === 200) {
+          AsyncStorage.setItem("token", res.headers.authorization);
+          AsyncStorage.setItem("gemail", res.data.email);
+          console.log(res.data);
+          dispatch(setuser(res.data));
+          dispatch(setcart(res.data.cart));
+
+          navigation.reset({ index: 0, routes: [{ name: "Home" }] });
         } else {
-          setErrortext(responseJson.msg);
           console.log("Please check your email id or password");
         }
       });
@@ -162,9 +117,6 @@ const Login = () => {
                 autoCapitalize="none"
                 keyboardType="email-address"
                 returnKeyType="next"
-                // onSubmitEditing={() =>
-                //   passwordInputRef.current && passwordInputRef.current.focus()
-                // }
                 underlineColorAndroid="#f000"
                 blurOnSubmit={false}
               />
@@ -174,10 +126,9 @@ const Login = () => {
                 cursorColor={"#ff5733"}
                 style={styles.inputStyle}
                 onChangeText={login.handleChange("password")}
-                placeholder="Enter Password" //12345
+                placeholder="Enter Password"
                 placeholderTextColor="#ff5733"
                 keyboardType="default"
-                // ref={passwordInputRef}
                 onSubmitEditing={Keyboard.dismiss}
                 blurOnSubmit={false}
                 secureTextEntry={true}
@@ -185,9 +136,7 @@ const Login = () => {
                 returnKeyType="next"
               />
             </View>
-            {errortext != "" ? (
-              <Text style={styles.errorTextStyle}>{errortext}</Text>
-            ) : null}
+
             <TouchableOpacity
               style={styles.buttonStyle}
               activeOpacity={0.5}

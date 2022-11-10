@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Calculate({ route }) {
   const user = useSelector((state) => state.userReducer.user);
@@ -40,7 +41,14 @@ function Calculate({ route }) {
         </Text>
       </View>
       <View style={styles.card}>
-        <Text style={styles.text1}> Weight</Text>
+        <Text style={styles.text1}>
+          <MaterialCommunityIcons
+            name="scale-bathroom"
+            color={"#ff5733"}
+            size={20}
+          />
+          Weight
+        </Text>
 
         <Text style={styles.text}>
           {(19 * Math.pow(user.height / 100, 2)).toFixed(0)}-
@@ -48,7 +56,14 @@ function Calculate({ route }) {
         </Text>
       </View>
       <View style={styles.card}>
-        <Text style={styles.text1}>Protine</Text>
+        <Text style={styles.text1}>
+          <MaterialCommunityIcons
+            name="food-turkey"
+            color={"#ff5733"}
+            size={20}
+          />
+          Protine
+        </Text>
 
         <Text style={styles.text}>
           {Math.ceil(user.weight * 0.8 * active) ||
@@ -57,13 +72,24 @@ function Calculate({ route }) {
         </Text>
       </View>
       <View style={styles.card}>
-        <Text style={styles.text1}> Calories </Text>
+        <Text style={styles.text1}>
+          <Ionicons name="md-fast-food-outline" color={"#ff5733"} size={20} />
+          Calories
+        </Text>
 
-        <Text style={styles.text}>{BMR * active || BMR * 1.2}cal</Text>
+        <Text style={styles.text}>
+          {(BMR * active).toFixed(0) || (BMR * 1.2).toFixed(0)}cal
+        </Text>
       </View>
       <View style={styles.card}>
-        <Text style={styles.text1}> Fat </Text>
-
+        <Text style={styles.text1}>
+          <MaterialCommunityIcons
+            name="percent-outline"
+            color={"#ff5733"}
+            size={20}
+          />
+          Fat
+        </Text>
         <Text style={styles.text}>
           {user.age < 40 ? "21-32" : user.age < 60 ? "23-35" : "24-36"}
         </Text>
@@ -102,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   text1: {
-    color: "#ff5733",
-    fontSize: 30,
+    color: "#222",
+    fontSize: 20,
   },
 });

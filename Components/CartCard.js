@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/types";
 import { Entypo } from "@expo/vector-icons";
 import { incount, decount } from "../Redux/Actions/productsAction";
+import { MyIp } from "../constants";
 function CartCard(props) {
   const dispatch = useDispatch();
-  let cartt = useSelector((state) => state.cartReducer.cart);
 
   return (
     <>
       <View style={style.card}>
-        <Image source={props.i.image[0]} style={style.img} />
+        <Image source={{ uri: MyIp + props.i.image[0] }} style={style.img} />
         <View style={{ width: "60%", justifyContent: "space-between" }}>
           <Text style={style.text}>{props.i.title} </Text>
 

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   text: {
     width: "100%",
     fontSize: 20,
-    color: "#ff5733",
+    color: "#222",
     marginHorizontal: "3%",
     padding: "3%",
     backgroundColor: "#eee",
