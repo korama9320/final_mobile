@@ -42,6 +42,7 @@ const Splash = () => {
         });
       } catch {
         console.log("login");
+        navigation.navigate("Login");
       }
     }, 4000);
   }, []);

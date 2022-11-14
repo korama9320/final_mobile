@@ -10,9 +10,11 @@ import {
   View,
 } from "react-native";
 import Svg, { Polygon } from "react-native-svg";
+import { useSelector } from "react-redux";
 function Home() {
   const navigation = useNavigation();
-
+  let user = useSelector((state) => state.userReducer.user);
+  // healthyFoodHistory
   return (
     <ScrollView
       style={{ flex: 1 }}
@@ -60,7 +62,11 @@ function Home() {
       <Pressable
         style={styles.card}
         onPress={() => {
-          navigation.navigate("Exercise");
+          user.exersiceHistory.length > 0
+            ? navigation.navigate("Exercise")
+            : user.subscription == "standard" || user.subscription == "premium"
+            ? alert("you will be assigned a trainer soon")
+            : navigation.navigate("Standard");
         }}
       >
         <Text style={[styles.text, { top: 140 }]}>Head To Today's WorkOut</Text>
@@ -70,7 +76,11 @@ function Home() {
       <Pressable
         style={styles.card}
         onPress={() => {
-          navigation.navigate("Diet");
+          user.exersiceHistory.length > 0
+            ? navigation.navigate("Diet")
+            : user.subscription == "standard" || user.subscription == "premium"
+            ? alert("you will be assigned a trainer soon")
+            : navigation.navigate("Premium");
         }}
       >
         <Text style={[styles.text, { top: 140 }]}>
@@ -138,7 +148,7 @@ function Home() {
       <Pressable
         style={styles.card}
         onPress={() => {
-          navigation.navigate("E-com");
+          navigation.navigate("Store");
         }}
       >
         <Text

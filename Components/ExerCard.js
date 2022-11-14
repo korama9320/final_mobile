@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
-    borderColor: "#ff5733",
-    borderWidth: 2,
+    // borderColor: "#ff5733",
+    // borderWidth: 2,
   },
   text: {
     borderBottomRightRadius: 10,

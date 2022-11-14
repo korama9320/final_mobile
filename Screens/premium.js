@@ -5,13 +5,71 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import { MyIp } from "../constants.js";
 import { Ionicons } from "@expo/vector-icons";
-
+import WebView from "react-native-webview";
+import { useState } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setuser } from "../Redux/Actions/userAction.js";
 function Premium() {
+  const Token = AsyncStorage.getItem("token");
+  let user = useSelector((state) => state.userReducer.user);
+  const dispatch = useDispatch();
+  let [show, setShow] = useState(false);
+  async function payment(data) {
+    if (data.title == "success") {
+      setShow(false);
+      let endsin = Math.floor(
+        (new Date(user.endDate) - Date.now()) / (1000 * 60 * 60 * 24)
+      );
+      let date =
+        user.endDate && endsin && user.subscription == "premium"
+          ? user.endDate
+          : new Date(Date.now()).toDateString();
+      let newend = addDays(date);
+      console.log(newend);
+      await axios
+        .patch(
+          `${MyIp}/api/v1/users/update`,
+          { subscription: "premium", email: user.email, endDate: newend },
+          {
+            headers: { authorization: Token },
+          }
+        )
+        .then(() => {
+          dispatch(setuser({ subscription: "premium", endDate: newend }));
+        });
+      alert("completed");
+    } else if (data.title == "cancel") {
+      setShow(false);
+      alert("canceled");
+    }
+  }
+  function addDays(date) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + 30);
+    return result;
+  }
   return (
     <View style={styles.cont}>
+      <Modal
+        visible={show}
+        onRequestClose={() => {
+          setShow(false);
+        }}
+      >
+        <WebView
+          source={{ uri: `${MyIp}/api/v1/users/pp` }}
+          onNavigationStateChange={(data) => {
+            payment(data);
+          }}
+          injectedJavaScript={`document.getElementById("price").value="30.00";document.getElementById("item").value="GMSpremium subscription";document.form.submit()`}
+        ></WebView>
+      </Modal>
       <Text style={styles.header}>
         <Text style={{ color: "#ff5733" }}>30$</Text>/Month
       </Text>
@@ -65,6 +123,9 @@ function Premium() {
           borderRadius: 100,
           borderColor: "#ff5733",
           borderWidth: 2,
+        }}
+        onPress={() => {
+          setShow(true);
         }}
       >
         <Text style={{ alignSelf: "center", color: "#ff5733", fontSize: 30 }}>

@@ -1,4 +1,3 @@
-// Import React and Component
 import React, { useState, createRef } from "react";
 import {
   StyleSheet,
@@ -119,6 +118,7 @@ const Register = (props) => {
               blurOnSubmit={false}
             />
           </View>
+          <Text style={styles.errorTextStyle}>{register.errors.firstName}</Text>
           <View style={styles.SectionStyle}>
             <TextInput
               cursorColor={"#ff5733"}
@@ -131,6 +131,7 @@ const Register = (props) => {
               blurOnSubmit={false}
             />
           </View>
+          <Text style={styles.errorTextStyle}>{register.errors.lastName}</Text>
           <View style={styles.SectionStyle}>
             <TextInput
               cursorColor={"#ff5733"}
@@ -144,6 +145,7 @@ const Register = (props) => {
               blurOnSubmit={false}
             />
           </View>
+          <Text style={styles.errorTextStyle}>{register.errors.email}</Text>
           <View style={styles.SectionStyle}>
             <TextInput
               cursorColor={"#ff5733"}
@@ -157,7 +159,7 @@ const Register = (props) => {
               blurOnSubmit={false}
             />
           </View>
-
+          <Text style={styles.errorTextStyle}>{register.errors.password}</Text>
           {errortext != "" ? (
             <Text style={styles.errorTextStyle}>{errortext}</Text>
           ) : null}
@@ -166,7 +168,7 @@ const Register = (props) => {
             activeOpacity={0.5}
             onPress={register.handleSubmit}
           >
-            <Text style={styles.buttonTextStyle}>LogIn</Text>
+            <Text style={styles.buttonTextStyle}>Register</Text>
           </TouchableOpacity>
           <Text style={styles.registerTextStyle}>
             Go Back ?
@@ -222,9 +224,11 @@ const styles = StyleSheet.create({
     borderColor: "#222",
   },
   errorTextStyle: {
-    color: "red",
-    textAlign: "center",
+    color: "#ff5733",
+    textAlign: "left",
     fontSize: 14,
+    marginHorizontal: "10%",
+    marginVertical: 1,
   },
   successTextStyle: {
     color: "white",

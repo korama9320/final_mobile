@@ -8,6 +8,7 @@ import {
   Pressable,
   ScrollView,
   TextInput,
+  Platform,
 } from "react-native";
 import { Entypo, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,8 +20,45 @@ import { Fragment, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MyIp } from "../constants";
-
+import * as ImagePicker from "expo-image-picker";
+import constants from "expo-constants";
 function Profile() {
+  const [image, setImage] = useState(null);
+  const PickImage = async () => {
+    if (Platform.OS !== "web") {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Permission denied");
+      }
+    }
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      setImage(result.uri);
+      const formdata = new FormData();
+      formdata.append("proImg", {
+        uri: result.uri,
+      });
+      axios
+        .patch(`${MyIp}/api/v1/users/updateProImg`, formdata, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "multipart/form-data",
+            authorization: Token,
+          },
+        })
+        .then((res) => {
+          dispatch(setuser({ profileImage: res.profileImage }));
+        })
+        .catch("error");
+    }
+  };
   const navigation = useNavigation();
   const dispatch = useDispatch();
   let user = useSelector((state) => state.userReducer.user);
@@ -66,19 +104,59 @@ function Profile() {
       dispatch(resetusers()), navigation.navigate("Login");
     });
   }
+  function checkin() {
+    axios
+      .post(
+        `${MyIp}/api/v1/users/attendce`,
+        { code: code, email: user.email },
+        {
+          headers: { authorization: Token },
+        }
+      )
+      .catch(console.log("error"));
+  }
   let [shown, setShown] = useState(1);
+  if (endsin <= 0) {
+    axios
+      .patch(
+        `${MyIp}/api/v1/users/update`,
+        { subscription: "none", email: user.email },
+        {
+          headers: { authorization: Token },
+        }
+      )
+      .then(() => {
+        dispatch(setuser({ subscription: "none" }));
+      });
+  }
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.top}>
-          <Image
-            source={{
-              uri: "https://cdn.firstcuriosity.com/wp-content/uploads/2022/10/03224440/Q_1664816680-1024x576.jpg",
-            }}
-            style={{ width: 150, height: 150, borderRadius: 150 }}
-          />
-          <Text style={{ fontSize: 40, color: "white", paddingBottom: "10%" }}>
-            {user.firstName + " " + user.lastName}
+          {user.profileImage ? (
+            <Image
+              source={{
+                uri: user.profileImage,
+              }}
+              style={{ width: 150, height: 150, borderRadius: 150 }}
+            />
+          ) : (
+            <Image
+              source={{
+                uri: "https://cdn.firstcuriosity.com/wp-content/uploads/2022/10/03224440/Q_1664816680-1024x576.jpg",
+              }}
+              style={{ width: 150, height: 150, borderRadius: 150 }}
+            />
+          )}
+          <Entypo
+            name="circle-with-plus"
+            size={30}
+            color="#fff"
+            style={{ position: "absolute", left: "58%", top: "50%" }}
+            onPress={PickImage}
+          ></Entypo>
+          <Text style={{ fontSize: 35, color: "white", paddingBottom: "10%" }}>
+            Hi,{user.firstName}
           </Text>
         </View>
         <View style={styles.card}>
@@ -135,7 +213,7 @@ function Profile() {
                   setCode(value);
                 }}
               />
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={checkin}>
                 <Text style={{ color: "#ff5733" }}>Check In</Text>
               </TouchableOpacity>
             </>

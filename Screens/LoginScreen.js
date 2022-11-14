@@ -1,4 +1,3 @@
-// Import React and Component
 import React, { useState, createRef } from "react";
 import {
   StyleSheet,
@@ -40,21 +39,24 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       setLoading(true);
-      axios.post(`${MyIp}/api/v1/users/login`, values).then((res) => {
-        setLoading(false);
-        console.log(res);
-        if (res.status === 200) {
-          AsyncStorage.setItem("token", res.headers.authorization);
-          AsyncStorage.setItem("gemail", res.data.email);
-          console.log(res.data);
-          dispatch(setuser(res.data));
-          dispatch(setcart(res.data.cart));
+      axios
+        .post(`${MyIp}/api/v1/users/login`, values)
+        .then((res) => {
+          setLoading(false);
+          console.log(res);
+          if (res.status === 200) {
+            AsyncStorage.setItem("token", res.headers.authorization);
+            AsyncStorage.setItem("gemail", res.data.email);
+            console.log(res.data);
+            dispatch(setuser(res.data));
+            dispatch(setcart(res.data.cart));
 
-          navigation.reset({ index: 0, routes: [{ name: "Home" }] });
-        } else {
-          console.log("Please check your email id or password");
-        }
-      });
+            navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+          } else {
+            console.log("Please check your email id or password");
+          }
+        })
+        .catch(setLoading(false));
     },
   });
   const navigation = useNavigation();
@@ -121,6 +123,7 @@ const Login = () => {
                 blurOnSubmit={false}
               />
             </View>
+            <Text style={styles.errorTextStyle}>{login.errors.email}</Text>
             <View style={styles.SectionStyle}>
               <TextInput
                 cursorColor={"#ff5733"}
@@ -136,7 +139,7 @@ const Login = () => {
                 returnKeyType="next"
               />
             </View>
-
+            <Text style={styles.errorTextStyle}>{login.errors.password}</Text>
             <TouchableOpacity
               style={styles.buttonStyle}
               activeOpacity={0.5}
@@ -214,9 +217,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   errorTextStyle: {
-    color: "red",
-    textAlign: "center",
+    color: "#ff5733",
+    textAlign: "left",
     fontSize: 14,
+    marginHorizontal: "10%",
+    marginVertical: 3,
   },
   register: {
     color: "#FF5733",
