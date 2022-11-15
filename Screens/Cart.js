@@ -44,10 +44,13 @@ function Cart() {
       alert("Please fill in your phone number and address");
     }
   }
-  const token = AsyncStorage.getItem("token");
 
   useEffect(() => {
-    console.log(cartt);
+    updatecart();
+  }, [cartt]);
+  async function updatecart() {
+    const token = await AsyncStorage.getItem("token");
+
     axios.patch(
       `${MyIp}/api/v1/users/update`,
       {
@@ -56,7 +59,7 @@ function Cart() {
       },
       { headers: { authorization: token } }
     );
-  }, [cartt]);
+  }
   return (
     <>
       <Text

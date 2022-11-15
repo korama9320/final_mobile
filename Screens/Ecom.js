@@ -28,7 +28,10 @@ function Ecom() {
   const produce = useSelector((state) => state.produceReducer.produce);
   let user = useSelector((state) => state.userReducer.user);
   let cartt = useSelector((state) => state.cartReducer.cart);
-  useEffect(async () => {
+  useEffect(() => {
+    updatecart();
+  }, [cartt]);
+  async function updatecart() {
     const token = await AsyncStorage.getItem("token");
 
     axios.patch(
@@ -39,7 +42,7 @@ function Ecom() {
       },
       { headers: { authorization: token } }
     );
-  }, [cartt]);
+  }
   function search() {
     const val = input.toLowerCase();
     let reg = new RegExp(val);
