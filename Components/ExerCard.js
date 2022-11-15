@@ -9,19 +9,44 @@ import {
 } from "react-native";
 import { MyIp } from "../constants";
 import Checkbox from "expo-checkbox";
-
+import { useDispatch } from "react-redux";
+import { setuser } from "../Redux/Actions/userAction";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 function ExerCard(props) {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  let user = useSelector((state) => state.userReducer.user);
+  let index = user.exersiceHistory.findIndex(
+    (item) => item.exerciseName == props.i.exerciseName
+  );
+  let newex = [...user.exersiceHistory];
+  async function handelcheck() {
+    newex[index].finsh = !newex[index].finsh;
+    console.log(newex);
+    dispatch(setuser({ exerciseName: newex }));
+    const token = await AsyncStorage.getItem("token");
+
+    axios.patch(
+      `${MyIp}/api/v1/users/update`,
+      {
+        email: user.email,
+        exerciseName: newex,
+      },
+      { headers: { authorization: token } }
+    );
+  }
+
   return (
-    <Pressable
-      style={styles.card}
-      onPress={() => {
-        navigation.navigate("Exe-Details", { exer: props.i });
-      }}
-    >
+    <Pressable style={styles.card}>
       <Image
         source={{ uri: MyIp + props.i.exStaticImage }}
         style={styles.img}
+        onPress={() => {
+          navigation.navigate("Exe-Details", { exer: props.i });
+        }}
       />
       <View style={{ width: "77%" }}>
         <Text style={styles.text}>{props.i.exerciseName}</Text>
@@ -31,7 +56,7 @@ function ExerCard(props) {
         <Checkbox
           style={styles.checkbox}
           value={props.i.finsh}
-          onValueChange={() => {}}
+          onValueChange={handelcheck}
           color={"#ff5733"}
         />
       </View>
