@@ -13,7 +13,7 @@ import { MyIp } from "../constants.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { checkoutt } from "../Redux/Actions/productsAction.js";
 import { useEffect } from "react";
-
+import io from "socket.io-client";
 function Cart() {
   const dispatch = useDispatch();
   let cartt = useSelector((state) => state.cartReducer.cart);
@@ -32,7 +32,14 @@ function Cart() {
         .then((res) => {
           dispatch(checkoutt());
           alert("Your order has been placed successfuly");
+          const sokit = io(`${MyIp}/4000`);
+          sokit.emit("Order", user.email);
         });
+      axios.post(`${MyIp}/api/v1/notification/create`, {
+        notificationMsg: "New Order",
+        notificationSende: user.email,
+        notificationDate: new Date().toDateString(),
+      });
     } else {
       alert("Please fill in your phone number and address");
     }
@@ -91,5 +98,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderColor: "#ff5733",
     borderWidth: 2,
+    marginBottom: 20,
   },
 });

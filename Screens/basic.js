@@ -8,7 +8,7 @@ import {
   Modal,
 } from "react-native";
 import { MyIp } from "../constants.js";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import WebView from "react-native-webview";
 import { useState } from "react";
 import axios from "axios";
@@ -118,7 +118,7 @@ function Basic() {
         }}
       >
         <Text style={{ alignSelf: "center", color: "#ff5733", fontSize: 30 }}>
-          Subscripe
+          Subscripe <Entypo name="paypal" size={20} color="#ff5733"></Entypo>
         </Text>
       </TouchableOpacity>
     </View>

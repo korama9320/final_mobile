@@ -1,4 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { MyIp } from "../constants";
 
 function DietDetails({ route }) {
   const i = route.params.diet;
@@ -16,13 +17,7 @@ function DietDetails({ route }) {
         paddingBottom: "5%",
       }}
     >
-      <Image
-        // source={{
-        //   uri: "https://acewebcontent.azureedge.net/exercise-library/large/7-1.jpg",
-        // }}
-        source={require("../assets/diet5.jpg")}
-        style={styles.img}
-      />
+      <Image source={{ uri: MyIp + i.imgFood }} style={styles.img} />
       <View style={styles.textcon}>
         <Text style={styles.text1}>Meal</Text>
         <Text style={styles.text}>{i.foodTime}</Text>

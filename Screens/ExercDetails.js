@@ -1,4 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { MyIp } from "../constants";
 
 function ExercDetails({ route }) {
   const i = route.params.exer;
@@ -16,12 +17,7 @@ function ExercDetails({ route }) {
         paddingBottom: "5%",
       }}
     >
-      <Image
-        source={{
-          uri: "https://acewebcontent.azureedge.net/exercise-library/large/7-1.jpg",
-        }}
-        style={styles.img}
-      />
+      <Image source={{ uri: MyIp + i.exStaticImage }} style={styles.img} />
       <View style={styles.textcon}>
         <Text style={styles.text1}>Name </Text>
         <Text style={styles.text}>{i.exerciseName}</Text>

@@ -23,7 +23,7 @@ import { MyIp } from "../constants";
 import * as ImagePicker from "expo-image-picker";
 import constants from "expo-constants";
 function Profile() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
   const PickImage = async () => {
     if (Platform.OS !== "web") {
       const { status } =
@@ -41,22 +41,28 @@ function Profile() {
     });
     if (!result.cancelled) {
       setImage(result.uri);
-      const formdata = new FormData();
-      formdata.append("proImg", {
-        uri: result.uri,
-      });
-      axios
-        .patch(`${MyIp}/api/v1/users/updateProImg`, formdata, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "multipart/form-data",
-            authorization: Token,
-          },
-        })
-        .then((res) => {
-          dispatch(setuser({ profileImage: res.profileImage }));
-        })
-        .catch("error");
+      console.log(image);
+      console.log(result.uri);
+      try {
+        const formdata = new FormData();
+        formdata.append("proImg", {
+          name: result.fileName,
+          type: "image/jpg",
+          path: image,
+        });
+        formdata.append("email", user.email);
+
+        await axios
+          .patch(`${MyIp}/api/v1/users/updateProImg`, formdata, {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {});
+      } catch {
+        console.log("error");
+      }
     }
   };
   const navigation = useNavigation();
@@ -113,6 +119,10 @@ function Profile() {
           headers: { authorization: Token },
         }
       )
+      .then((res) => {
+        console.log(res.data);
+        alert(res.data);
+      })
       .catch(console.log("error"));
   }
   let [shown, setShown] = useState(1);
@@ -133,17 +143,24 @@ function Profile() {
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.top}>
-          {user.profileImage ? (
+          {image ? (
             <Image
               source={{
-                uri: user.profileImage,
+                uri: image,
+              }}
+              style={{ width: 150, height: 150, borderRadius: 150 }}
+            />
+          ) : user.profileImage ? (
+            <Image
+              source={{
+                uri: MyIp + user.profileImage,
               }}
               style={{ width: 150, height: 150, borderRadius: 150 }}
             />
           ) : (
             <Image
               source={{
-                uri: "https://cdn.firstcuriosity.com/wp-content/uploads/2022/10/03224440/Q_1664816680-1024x576.jpg",
+                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTliHgn_qvmRTNu7yo7ZaPFtu7gLlZs8MytxA&usqp=CAU",
               }}
               style={{ width: 150, height: 150, borderRadius: 150 }}
             />

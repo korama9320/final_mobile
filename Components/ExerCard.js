@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
+import { MyIp } from "../constants";
 
 function ExerCard(props) {
   const navigation = useNavigation();
@@ -17,7 +18,10 @@ function ExerCard(props) {
         navigation.navigate("Exe-Details", { exer: props.i });
       }}
     >
-      <Image source={require("../assets/banner.jpg")} style={styles.img} />
+      <Image
+        source={{ uri: MyIp + props.i.exStaticImage }}
+        style={styles.img}
+      />
       <View style={{ width: "77%" }}>
         <Text style={styles.text}>{props.i.exerciseName}</Text>
         <Text style={{ paddingHorizontal: 20 }}>

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
+import { MyIp } from "../constants";
 function DiteCard(props) {
   const navigation = useNavigation();
 
@@ -32,7 +33,7 @@ function DiteCard(props) {
         >
           {props.i.foodTime}
         </Text>
-        <Image source={require("../assets/diet5.jpg")} style={styles.img} />
+        <Image source={{ uri: MyIp + props.i.imgFood }} style={styles.img} />
         <View
           style={{
             width: "100%",

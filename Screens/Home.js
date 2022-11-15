@@ -54,8 +54,10 @@ function Home() {
           </Svg>
         </View>
 
-        <Text style={[styles.text, { top: 20 }]}>GMS Health Life Style</Text>
-        <Text style={[styles.text, , { top: 50 }]}>
+        <Text style={[styles.text, { top: 20, color: "#ff5733" }]}>
+          GMS Health Life Style
+        </Text>
+        <Text style={[styles.text, { top: 50 }]}>
           {new Date(Date.now()).toDateString()}
         </Text>
       </View>
@@ -97,7 +99,16 @@ function Home() {
             navigation.navigate("Premium");
           }}
         >
-          <Text style={{ color: "#e6192e", fontSize: 55 }}>Premium</Text>
+          <View
+            style={{
+              backgroundColor: "#527DF344",
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              borderRadius: 20,
+            }}
+          ></View>
+          <Text style={{ color: "#527DF3", fontSize: 55 }}>Premium</Text>
           <Image
             source={require("../assets/workout3.jpg")}
             style={styles.img}
@@ -109,6 +120,15 @@ function Home() {
             navigation.navigate("Standard");
           }}
         >
+          <View
+            style={{
+              backgroundColor: "#f9f29544",
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              borderRadius: 20,
+            }}
+          ></View>
           <Text style={{ color: "#f9f295", fontSize: 55 }}>Standard</Text>
 
           <Image source={require("../assets/formBG.jpeg")} style={styles.img} />
@@ -119,6 +139,15 @@ function Home() {
             navigation.navigate("Basic");
           }}
         >
+          <View
+            style={{
+              backgroundColor: "#e5e4e244",
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              borderRadius: 20,
+            }}
+          ></View>
           <Text style={{ color: "#e5e4e2", fontSize: 55 }}>Basic</Text>
 
           <Image source={require("../assets/header2.jpg")} style={styles.img} />
@@ -128,21 +157,24 @@ function Home() {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.card1}>
           <Image
-            source={require("../assets/trainer3.jpg")}
+            source={require("../assets/trainer2.jpg")}
             style={styles.img}
           />
+          <Text style={styles.trainer}>Ali 32y</Text>
+        </View>
+        <View style={styles.card1}>
+          <Image
+            source={require("../assets/trainer4.jpg")}
+            style={styles.img}
+          />
+          <Text style={styles.trainer}>Khaled 22y</Text>
         </View>
         <View style={styles.card1}>
           <Image
             source={require("../assets/trainer3.jpg")}
             style={styles.img}
           />
-        </View>
-        <View style={styles.card1}>
-          <Image
-            source={require("../assets/trainer3.jpg")}
-            style={styles.img}
-          />
+          <Text style={styles.trainer}>Youssef 28y</Text>
         </View>
       </ScrollView>
       <Pressable
@@ -178,9 +210,9 @@ const styles = StyleSheet.create({
     height: 250,
   },
   text: {
-    color: "#ff5733",
+    color: "#000",
     position: "absolute",
-    backgroundColor: "#ddd",
+    backgroundColor: "#fff",
     paddingHorizontal: 10,
     borderRadius: 3,
     fontWeight: "bold",
@@ -218,5 +250,17 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 20,
     zIndex: -1,
+  },
+  trainer: {
+    position: "absolute",
+    bottom: 10,
+    left: 10,
+    height: "20%",
+    backgroundColor: "#999",
+    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingHorizontal: 20,
+    fontSize: 20,
+    color: "#fff",
   },
 });

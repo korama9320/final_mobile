@@ -37,11 +37,11 @@ const Splash = () => {
                 } else {
                   navigation.navigate("Login");
                 }
-              });
+              })
+              .catch(console.log("login"), navigation.navigate("Login"));
           }
         });
       } catch {
-        console.log("login");
         navigation.navigate("Login");
       }
     }, 4000);
