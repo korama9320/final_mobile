@@ -9,7 +9,6 @@ import { setuser } from "../Redux/Actions/userAction";
 import { useDispatch } from "react-redux";
 import { setcart } from "../Redux/Actions/productsAction";
 const Splash = () => {
-  //State for ActivityIndicator animation
   const [animating, setAnimating] = useState(true);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -17,33 +16,30 @@ const Splash = () => {
     setTimeout(async () => {
       setAnimating(false);
       let gemail = await AsyncStorage.getItem("gemail");
-      try {
-        await AsyncStorage.getItem("token").then((value) => {
-          if (value === null) {
-            navigation.navigate("Login");
-          } else {
-            axios
-              .post(
-                `${MyIp}/api/v1/users/gateway`,
-                { email: gemail },
-                { headers: { authorization: value } }
-              )
-              .then((res) => {
-                if (res.status === 200) {
-                  console.log(res.data);
-                  dispatch(setuser(res.data));
-                  dispatch(setcart(res.data.cart));
-                  navigation.navigate("Home");
-                } else {
-                  navigation.navigate("Login");
-                }
-              })
-              .catch(console.log("login"), navigation.navigate("Login"));
-          }
-        });
-      } catch {
-        navigation.navigate("Login");
-      }
+
+      AsyncStorage.getItem("token").then((value) => {
+        if (value === null) {
+          navigation.navigate("Login");
+        } else {
+          axios
+            .post(
+              `${MyIp}/api/v1/users/gateway`,
+              { email: gemail },
+              { headers: { authorization: value } }
+            )
+            .then((res) => {
+              if (res.status === 200) {
+                console.log(res.data);
+                dispatch(setuser(res.data));
+                dispatch(setcart(res.data.cart));
+                navigation.navigate("Home");
+              } else {
+                navigation.navigate("Login");
+              }
+            })
+            .catch(console.log("login"), navigation.navigate("Login"));
+        }
+      });
     }, 4000);
   }, []);
 

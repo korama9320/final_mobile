@@ -14,28 +14,6 @@ function TabUser() {
   const TabUser = createNativeStackNavigator();
   const Drawer = createDrawerNavigator();
   const navigation = useNavigation();
-  // const TabTheme = ({ route }) => ({
-  //   tabBarIcon: ({ focused, color, size }) => {
-  //     let iconName;
-
-  //     if (route.name === "Exercise") {
-  //       iconName = "dumbbell";
-  //       size = focused ? 30 : 20;
-  //     } else if (route.name === "Diet") {
-  //       iconName = "food-apple";
-  //       size = focused ? 30 : 20;
-  //     } else if (route.name === "Stats") {
-  //       iconName = "stats-chart";
-  //       size = focused ? 30 : 20;
-  //       return <Ionicons name={iconName} size={size} color={color} />;
-  //     }
-  //     return (
-  //       <MaterialCommunityIcons name={iconName} size={size} color={color} />
-  //     );
-  //   },
-  //   tabBarActiveTintColor: "#FF5733",
-  //   tabBarInactiveTintColor: "gray",
-  // });
 
   return (
     <TabUser.Navigator initialRouteName="GMS.">

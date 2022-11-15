@@ -68,7 +68,6 @@ function Profile() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   let user = useSelector((state) => state.userReducer.user);
-  const Token = AsyncStorage.getItem("token");
 
   let profile = useFormik({
     initialValues: {
@@ -86,7 +85,8 @@ function Profile() {
         .required("Enter Phone Number"),
       address: yup.string().required("Enter Adrdess"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      const Token = await AsyncStorage.getItem("token");
       axios
         .patch(
           `${MyIp}/api/v1/users/update`,
@@ -110,7 +110,9 @@ function Profile() {
       dispatch(resetusers()), navigation.navigate("Login");
     });
   }
-  function checkin() {
+  async function checkin() {
+    const Token = await AsyncStorage.getItem("token");
+
     axios
       .post(
         `${MyIp}/api/v1/users/attendce`,
@@ -126,19 +128,24 @@ function Profile() {
       .catch(console.log("error"));
   }
   let [shown, setShown] = useState(1);
-  if (endsin <= 0) {
-    axios
-      .patch(
-        `${MyIp}/api/v1/users/update`,
-        { subscription: "none", email: user.email },
-        {
-          headers: { authorization: Token },
-        }
-      )
-      .then(() => {
-        dispatch(setuser({ subscription: "none" }));
-      });
-  }
+  (async () => {
+    const Token = await AsyncStorage.getItem("token");
+
+    if (endsin <= 0) {
+      axios
+        .patch(
+          `${MyIp}/api/v1/users/update`,
+          { subscription: "none", email: user.email },
+          {
+            headers: { authorization: Token },
+          }
+        )
+        .then(() => {
+          dispatch(setuser({ subscription: "none" }));
+        });
+    }
+  })();
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>

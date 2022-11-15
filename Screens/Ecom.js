@@ -28,8 +28,9 @@ function Ecom() {
   const produce = useSelector((state) => state.produceReducer.produce);
   let user = useSelector((state) => state.userReducer.user);
   let cartt = useSelector((state) => state.cartReducer.cart);
-  const token = AsyncStorage.getItem("token");
-  useEffect(() => {
+  useEffect(async () => {
+    const token = await AsyncStorage.getItem("token");
+
     axios.patch(
       `${MyIp}/api/v1/users/update`,
       {

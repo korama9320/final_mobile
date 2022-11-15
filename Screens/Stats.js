@@ -21,7 +21,6 @@ function Stats() {
   const dispatch = useDispatch();
   let user = useSelector((state) => state.userReducer.user);
   let [active, setActive] = useState(0);
-  const Token = AsyncStorage.getItem("token");
 
   const navigation = useNavigation();
   const statistics = useFormik({
@@ -32,7 +31,8 @@ function Stats() {
       age: user.age,
       fat: "",
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      const token = await AsyncStorage.getItem("token");
       axios
         .patch(
           `${MyIp}/api/v1/users/update`,
