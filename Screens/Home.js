@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 function Home() {
   const navigation = useNavigation();
   let user = useSelector((state) => state.userReducer.user);
-  // healthyFoodHistory
   return (
     <ScrollView
       style={{ flex: 1 }}

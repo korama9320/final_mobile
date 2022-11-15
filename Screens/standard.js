@@ -16,11 +16,11 @@ import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setuser } from "../Redux/Actions/userAction.js";
 function Standard() {
-  const Token = AsyncStorage.getItem("token");
   let user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
   let [show, setShow] = useState(false);
   async function payment(data) {
+    const Token = await AsyncStorage.getItem("token");
     if (data.title == "success") {
       setShow(false);
       let endsin = Math.floor(
@@ -51,6 +51,7 @@ function Standard() {
       alert("canceled");
     }
   }
+  //////////////////////increas subscribtion duration///////////////////
   function addDays(date) {
     var result = new Date(date);
     result.setDate(result.getDate() + 30);

@@ -18,6 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { MyIp } from "../constants";
 function Stats() {
+  ///////////////////////////////calculaton submit///////////////////////////////
   const dispatch = useDispatch();
   let user = useSelector((state) => state.userReducer.user);
   let [active, setActive] = useState(0);

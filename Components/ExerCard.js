@@ -8,6 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import { MyIp } from "../constants";
+import Checkbox from "expo-checkbox";
 
 function ExerCard(props) {
   const navigation = useNavigation();
@@ -27,6 +28,12 @@ function ExerCard(props) {
         <Text style={{ paddingHorizontal: 20 }}>
           {new Date(props.i.date).toDateString()}
         </Text>
+        <Checkbox
+          style={styles.checkbox}
+          value={props.i.finsh}
+          onValueChange={() => {}}
+          color={"#ff5733"}
+        />
       </View>
     </Pressable>
   );
@@ -35,6 +42,11 @@ function ExerCard(props) {
 export default ExerCard;
 
 const styles = StyleSheet.create({
+  checkbox: {
+    position: "absolute",
+    right: 10,
+    top: "50%",
+  },
   card: {
     marginVertical: 15,
     padding: "1%",

@@ -23,6 +23,7 @@ function Cart() {
   for (let i of cartt) {
     x += i.price * i.count;
   }
+  ////////////////////////////check out function//////////////////////////
   function checkout() {
     if ((user.email, user.address, user.phoneNumber)) {
       axios
@@ -44,7 +45,7 @@ function Cart() {
       alert("Please fill in your phone number and address");
     }
   }
-
+  ////////////////////////////updating user cart////////////////////////////
   useEffect(() => {
     updatecart();
   }, [cartt]);

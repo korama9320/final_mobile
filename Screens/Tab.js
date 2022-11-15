@@ -20,6 +20,7 @@ function Tab() {
   const BadgedIcon = withBadge(x)(Icon);
 
   const Tab = createBottomTabNavigator();
+  /////////////////////////////tab theme////////////////////////
   const TabTheme = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
       let iconName;

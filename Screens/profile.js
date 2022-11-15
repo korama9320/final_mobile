@@ -23,6 +23,7 @@ import { MyIp } from "../constants";
 import * as ImagePicker from "expo-image-picker";
 import constants from "expo-constants";
 function Profile() {
+  /////////////////////////upload image////////////////////
   const [image, setImage] = useState("");
   const PickImage = async () => {
     if (Platform.OS !== "web") {
@@ -65,6 +66,7 @@ function Profile() {
       }
     }
   };
+  ///////////////////////////////update form///////////////////////////
   const navigation = useNavigation();
   const dispatch = useDispatch();
   let user = useSelector((state) => state.userReducer.user);
@@ -101,15 +103,14 @@ function Profile() {
         .catch("error");
     },
   });
-  let [code, setCode] = useState("");
-  let endsin = Math.floor(
-    (new Date(user.endDate) - Date.now()) / (1000 * 60 * 60 * 24)
-  );
+  ////////////////////////////////////sign out///////////////////////////////////
   function signout() {
     AsyncStorage.clear().then(() => {
       dispatch(resetusers()), navigation.navigate("Login");
     });
   }
+  ///////////////////////////////////check in function////////////////////////////////
+  let [code, setCode] = useState("");
   async function checkin() {
     const Token = await AsyncStorage.getItem("token");
 
@@ -128,6 +129,10 @@ function Profile() {
       .catch(console.log("error"));
   }
   let [shown, setShown] = useState(1);
+  ////////////////////////////////un sub//////////////////////////////////
+  let endsin = Math.floor(
+    (new Date(user.endDate) - Date.now()) / (1000 * 60 * 60 * 24)
+  );
   (async () => {
     const Token = await AsyncStorage.getItem("token");
 

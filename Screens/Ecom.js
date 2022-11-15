@@ -11,7 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 function Ecom() {
   let [input, setInput] = useState("");
   const dispatch = useDispatch();
-
+  /////////////////////////geting the product data////////////////////////////
   useEffect(() => {
     axios.get(`${MyIp}/api/v1/products/`).then((res) => {
       dispatch(setProducts(res.data));
@@ -28,6 +28,7 @@ function Ecom() {
   const produce = useSelector((state) => state.produceReducer.produce);
   let user = useSelector((state) => state.userReducer.user);
   let cartt = useSelector((state) => state.cartReducer.cart);
+  ///////////////////////////////update cart////////////////////////
   useEffect(() => {
     updatecart();
   }, [cartt]);
@@ -43,6 +44,7 @@ function Ecom() {
       { headers: { authorization: token } }
     );
   }
+  /////////////////////////search////////////////////////
   function search() {
     const val = input.toLowerCase();
     let reg = new RegExp(val);

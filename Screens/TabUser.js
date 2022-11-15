@@ -12,8 +12,6 @@ import Home from "./Home";
 
 function TabUser() {
   const TabUser = createNativeStackNavigator();
-  const Drawer = createDrawerNavigator();
-  const navigation = useNavigation();
 
   return (
     <TabUser.Navigator initialRouteName="GMS.">
