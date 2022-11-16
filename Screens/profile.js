@@ -22,6 +22,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MyIp } from "../constants";
 import * as ImagePicker from "expo-image-picker";
 import constants from "expo-constants";
+import Toast from "react-native-toast-message";
+
 function Profile() {
   /////////////////////////upload image////////////////////
   const [image, setImage] = useState("");
@@ -30,7 +32,7 @@ function Profile() {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
-        alert("Permission denied");
+        showToast("error", "faild", "Permission denied");
       }
     }
 
@@ -103,7 +105,7 @@ function Profile() {
         .catch("error");
     },
   });
-  ////////////////////////////////////sign out///////////////////////////////////
+  ////////////////////////////////////sign///////////////////////////////////
   function signout() {
     AsyncStorage.clear().then(() => {
       dispatch(resetusers()), navigation.navigate("Login");
@@ -124,7 +126,7 @@ function Profile() {
       )
       .then((res) => {
         console.log(res.data);
-        alert(res.data);
+        showToast("success", "Massage", res.data);
       })
       .catch(console.log("error"));
   }
@@ -150,7 +152,13 @@ function Profile() {
         });
     }
   })();
-
+  function showToast(type, text1, text2) {
+    Toast.show({
+      type: type,
+      text1: text1,
+      text2: text2,
+    });
+  }
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>

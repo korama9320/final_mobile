@@ -11,9 +11,17 @@ import {
 } from "react-native";
 import Svg, { Polygon } from "react-native-svg";
 import { useSelector } from "react-redux";
+import Toast from "react-native-toast-message";
 function Home() {
   const navigation = useNavigation();
   let user = useSelector((state) => state.userReducer.user);
+  function showToast(type, text1, text2) {
+    Toast.show({
+      type: type,
+      text1: text1,
+      text2: text2,
+    });
+  }
   return (
     <ScrollView
       style={{ flex: 1 }}
@@ -66,7 +74,7 @@ function Home() {
           user.exersiceHistory.length > 0
             ? navigation.navigate("Exercise")
             : user.subscription == "standard" || user.subscription == "premium"
-            ? alert("you will be assigned a trainer soon")
+            ? showToast("info", "Info", "you will be assigned a trainer soon")
             : navigation.navigate("Standard");
         }}
       >
@@ -80,7 +88,7 @@ function Home() {
           user.exersiceHistory.length > 0
             ? navigation.navigate("Diet")
             : user.subscription == "standard" || user.subscription == "premium"
-            ? alert("you will be assigned a trainer soon")
+            ? showToast("info", "Info", "you will be assigned a trainer soon")
             : navigation.navigate("Premium");
         }}
       >

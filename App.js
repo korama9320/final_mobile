@@ -20,6 +20,8 @@ import { MyIp } from "./constants";
 import Premium from "./Screens/premium";
 import Standard from "./Screens/standard";
 import Basic from "./Screens/basic";
+import Toast from "react-native-toast-message";
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   const MyTheme = {
@@ -73,6 +75,7 @@ export default function App() {
           <Stack.Screen name="Basic" component={Basic}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast />
     </Provider>
   );
 }

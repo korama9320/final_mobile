@@ -15,6 +15,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setuser } from "../Redux/Actions/userAction.js";
+import Toast from "react-native-toast-message";
 
 function Basic() {
   let user = useSelector((state) => state.userReducer.user);
@@ -48,10 +49,10 @@ function Basic() {
         .then(() => {
           dispatch(setuser({ subscription: "basic", endDate: newend }));
         });
-      alert("Payment Completed");
+      showToast("success", "Completed", "you joined our family ");
     } else if (data.title == "cancel") {
       setShow(false);
-      alert("Payment Canceled");
+      showToast("error", "Canceled", "Please Try Again ");
     }
   }
   //////////////////////increas subscribtion duration///////////////////
@@ -60,6 +61,13 @@ function Basic() {
     var result = new Date(date);
     result.setDate(result.getDate() + 30);
     return result;
+  }
+  function showToast(type, text1, text2) {
+    Toast.show({
+      type: type,
+      text1: text1,
+      text2: text2,
+    });
   }
   return (
     <View style={styles.cont}>

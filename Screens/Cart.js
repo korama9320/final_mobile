@@ -14,6 +14,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { checkoutt } from "../Redux/Actions/productsAction.js";
 import { useEffect } from "react";
 import io from "socket.io-client";
+import Toast from "react-native-toast-message";
+
 function Cart() {
   const dispatch = useDispatch();
   let cartt = useSelector((state) => state.cartReducer.cart);
@@ -32,7 +34,11 @@ function Cart() {
         })
         .then((res) => {
           dispatch(checkoutt());
-          alert("Your order has been placed successfuly");
+          showToast(
+            "success",
+            "Completed",
+            "Your order has been placed successfuly"
+          );
           const sokit = io(`${MyIp}/4000`);
           sokit.emit("Order", user.email);
         });
@@ -42,7 +48,11 @@ function Cart() {
         notificationDate: new Date().toDateString(),
       });
     } else {
-      alert("Please fill in your phone number and address");
+      showToast(
+        "error",
+        "Canceled",
+        "Please fill in your phone number and address"
+      );
     }
   }
   ////////////////////////////updating user cart////////////////////////////
@@ -60,6 +70,13 @@ function Cart() {
       },
       { headers: { authorization: token } }
     );
+  }
+  function showToast(type, text1, text2) {
+    Toast.show({
+      type: type,
+      text1: text1,
+      text2: text2,
+    });
   }
   return (
     <>

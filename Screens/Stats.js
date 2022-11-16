@@ -33,7 +33,7 @@ function Stats() {
       fat: "",
     },
     onSubmit: async (values) => {
-      const token = await AsyncStorage.getItem("token");
+      const Token = await AsyncStorage.getItem("token");
       axios
         .patch(
           `${MyIp}/api/v1/users/update`,
