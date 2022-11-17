@@ -173,7 +173,7 @@ function Profile() {
           ) : user.profileImage ? (
             <Image
               source={{
-                uri: MyIp + user.profileImage,
+                uri: MyIp + "/" + user.profileImage,
               }}
               style={{ width: 150, height: 150, borderRadius: 150 }}
             />
@@ -236,6 +236,7 @@ function Profile() {
           {shown == 1 && (
             <>
               <TextInput
+                selectionColor={"#ff5733"}
                 cursorColor={"#ff5733"}
                 placeholder="Enter Today's Code"
                 placeholderTextColor={"#ff5733"}
@@ -265,6 +266,7 @@ function Profile() {
               <View style={styles.bottomcard}>
                 <MaterialIcons name="phone-iphone" size={24} color="#ff5733" />
                 <TextInput
+                  selectionColor={"#ff5733"}
                   cursorColor={"#ff5733"}
                   style={{ marginHorizontal: "5%", width: "80%" }}
                   onChangeText={profile.handleChange("phoneNumber")}
@@ -276,6 +278,7 @@ function Profile() {
               <View style={styles.bottomcard}>
                 <Ionicons name="location" size={24} color="#ff5733" />
                 <TextInput
+                  selectionColor={"#ff5733"}
                   cursorColor={"#ff5733"}
                   style={{ marginHorizontal: "5%", width: "80%" }}
                   onChangeText={profile.handleChange("address")}
@@ -285,8 +288,11 @@ function Profile() {
                 </TextInput>
               </View>
               <View style={styles.bottomcard}>
-                <Entypo name="user" size={24} color="#ff5733" />
+                {/* <Entypo name="user" size={24} color="#ff5733" /> */}
+                <Text style={{ color: "#ff5733", fontSize: 22 }}>FN</Text>
+
                 <TextInput
+                  selectionColor={"#ff5733"}
                   cursorColor={"#ff5733"}
                   style={{ marginHorizontal: "5%", width: "80%" }}
                   onChangeText={profile.handleChange("firstName")}
@@ -296,8 +302,10 @@ function Profile() {
                 </TextInput>
               </View>
               <View style={styles.bottomcard}>
-                <Entypo name="user" size={24} color="#ff5733" />
+                {/* <Entypo name="user" size={24} color="#ff5733" /> */}
+                <Text style={{ color: "#ff5733", fontSize: 22 }}>LN</Text>
                 <TextInput
+                  selectionColor={"#ff5733"}
                   cursorColor={"#ff5733"}
                   style={{ marginHorizontal: "5%", width: "80%" }}
                   onChangeText={profile.handleChange("lastName")}

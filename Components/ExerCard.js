@@ -40,13 +40,17 @@ function ExerCard(props) {
   }
 
   return (
-    <Pressable style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() => {
+        navigation.navigate("Exe-Details", { exer: props.i });
+      }}
+    >
       <Image
-        source={{ uri: MyIp + props.i.exStaticImage }}
-        style={styles.img}
-        onPress={() => {
-          navigation.navigate("Exe-Details", { exer: props.i });
+        source={{
+          uri: MyIp + "/" + props.i.exStaticImage,
         }}
+        style={styles.img}
       />
       <View style={{ width: "77%" }}>
         <Text style={styles.text}>{props.i.exerciseName}</Text>

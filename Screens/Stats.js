@@ -112,6 +112,7 @@ function Stats() {
           </Text>
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
             <TextInput
+              selectionColor={"#ff5733"}
               keyboardType="numeric"
               cursorColor="#ff5733"
               style={{ color: "#222", fontSize: 55 }}
@@ -131,6 +132,7 @@ function Stats() {
           </Text>
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
             <TextInput
+              selectionColor={"#ff5733"}
               keyboardType="numeric"
               cursorColor="#ff5733"
               style={{ color: "#222", fontSize: 55 }}
@@ -155,6 +157,7 @@ function Stats() {
             Age
           </Text>
           <TextInput
+            selectionColor={"#ff5733"}
             keyboardType="numeric"
             cursorColor="#ff5733"
             style={{ color: "#222", fontSize: 55 }}
@@ -175,6 +178,7 @@ function Stats() {
             Fat
           </Text>
           <TextInput
+            selectionColor={"#ff5733"}
             keyboardType="numeric"
             cursorColor="#ff5733"
             style={{ color: "#222", fontSize: 55 }}

@@ -12,7 +12,10 @@ function Card(props) {
   return (
     <>
       <View style={style.card}>
-        <Image source={{ uri: MyIp + props.i.image[0] }} style={style.img} />
+        <Image
+          source={{ uri: MyIp + "/" + props.i.image[0] }}
+          style={style.img}
+        />
         <Text style={style.text}>{props.i.title} </Text>
         <View
           style={{

@@ -28,7 +28,7 @@ function Tab() {
       if (route.name === "GMS") {
         iconName = "home";
         size = focused ? 30 : 20;
-      } else if (route.name === "Stats") {
+      } else if (route.name === "Status") {
         iconName = "stats-chart";
         size = focused ? 30 : 20;
         return <Ionicons name={iconName} size={size} color={color} />;
@@ -55,7 +55,7 @@ function Tab() {
       ></Tab.Screen>
 
       <Tab.Screen
-        name="Stats"
+        name="Status"
         component={Stats}
         options={{ headerBackVisible: false, headerShown: false }}
       ></Tab.Screen>

@@ -10,7 +10,10 @@ function CartCard(props) {
   return (
     <>
       <View style={style.card}>
-        <Image source={{ uri: MyIp + props.i.image[0] }} style={style.img} />
+        <Image
+          source={{ uri: MyIp + "/" + props.i.image[0] }}
+          style={style.img}
+        />
         <View style={{ width: "60%", justifyContent: "space-between" }}>
           <Text style={style.text}>{props.i.title} </Text>
 

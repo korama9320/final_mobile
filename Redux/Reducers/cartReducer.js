@@ -19,21 +19,42 @@ export function cartReducer(state = { cart: [] }, action) {
     case increment: {
       let x = state.cart.filter((item) => item.title === action.payload.title);
       let y = state.cart.filter((item) => item.title !== action.payload.title);
+      let index = state.cart.findIndex(
+        (item) => item.title === action.payload.title
+      );
       if (x[0].quantity <= x[0].count) {
         return { ...state, cart: [{ ...x[0], count: x[0].quantity }, ...y] };
       } else {
-        return { ...state, cart: [{ ...x[0], count: x[0].count + 1 }, ...y] };
+        return {
+          ...state,
+          cart: [
+            ...y.splice(0, index),
+            { ...x[0], count: x[0].count + 1 },
+            ...y,
+          ],
+        };
       }
     }
 
     case decrement: {
       let x = state.cart.filter((item) => item.title === action.payload.title);
       let y = state.cart.filter((item) => item.title !== action.payload.title);
+      let index = state.cart.findIndex(
+        (item) => item.title === action.payload.title
+      );
+      // let z = y.splice(index, 0, ...x);
       if (x[0].count <= 1) {
         console.log(1);
         return { ...state, cart: [...y] };
       } else {
-        return { ...state, cart: [{ ...x[0], count: x[0].count - 1 }, ...y] };
+        return {
+          ...state,
+          cart: [
+            ...y.splice(0, index),
+            { ...x[0], count: x[0].count - 1 },
+            ...y,
+          ],
+        };
       }
     }
     case checkout: {

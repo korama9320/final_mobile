@@ -111,6 +111,7 @@ const Login = () => {
             </View>
             <View style={styles.SectionStyle}>
               <TextInput
+                selectionColor={"#ff5733"}
                 cursorColor={"#ff5733"}
                 style={styles.inputStyle}
                 onChangeText={login.handleChange("email")}
@@ -126,6 +127,7 @@ const Login = () => {
             <Text style={styles.errorTextStyle}>{login.errors.email}</Text>
             <View style={styles.SectionStyle}>
               <TextInput
+                selectionColor={"#ff5733"}
                 cursorColor={"#ff5733"}
                 style={styles.inputStyle}
                 onChangeText={login.handleChange("password")}

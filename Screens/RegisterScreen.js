@@ -107,6 +107,7 @@ const Register = (props) => {
         <KeyboardAvoidingView enabled>
           <View style={styles.SectionStyle}>
             <TextInput
+              selectionColor={"#ff5733"}
               cursorColor={"#ff5733"}
               style={styles.inputStyle}
               onChangeText={register.handleChange("firstName")}
@@ -121,6 +122,7 @@ const Register = (props) => {
           <Text style={styles.errorTextStyle}>{register.errors.firstName}</Text>
           <View style={styles.SectionStyle}>
             <TextInput
+              selectionColor={"#ff5733"}
               cursorColor={"#ff5733"}
               style={styles.inputStyle}
               onChangeText={register.handleChange("lastName")}
@@ -134,6 +136,7 @@ const Register = (props) => {
           <Text style={styles.errorTextStyle}>{register.errors.lastName}</Text>
           <View style={styles.SectionStyle}>
             <TextInput
+              selectionColor={"#ff5733"}
               cursorColor={"#ff5733"}
               style={styles.inputStyle}
               onChangeText={register.handleChange("email")}
@@ -148,6 +151,7 @@ const Register = (props) => {
           <Text style={styles.errorTextStyle}>{register.errors.email}</Text>
           <View style={styles.SectionStyle}>
             <TextInput
+              selectionColor={"#ff5733"}
               cursorColor={"#ff5733"}
               style={styles.inputStyle}
               onChangeText={register.handleChange("password")}

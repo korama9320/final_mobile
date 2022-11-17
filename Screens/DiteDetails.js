@@ -17,7 +17,7 @@ function DietDetails({ route }) {
         paddingBottom: "5%",
       }}
     >
-      <Image source={{ uri: MyIp + i.imgFood }} style={styles.img} />
+      <Image source={{ uri: MyIp + "/" + i.imgFood }} style={styles.img} />
       <View style={styles.textcon}>
         <Text style={styles.text1}>Meal</Text>
         <Text style={styles.text}>{i.foodTime}</Text>

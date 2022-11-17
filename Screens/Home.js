@@ -85,7 +85,7 @@ function Home() {
       <Pressable
         style={styles.card}
         onPress={() => {
-          user.exersiceHistory.length > 0
+          user.healthyFoodHistory.length > 0
             ? navigation.navigate("Diet")
             : user.subscription == "standard" || user.subscription == "premium"
             ? showToast("info", "Info", "you will be assigned a trainer soon")

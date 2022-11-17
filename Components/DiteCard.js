@@ -33,7 +33,10 @@ function DiteCard(props) {
         >
           {props.i.foodTime}
         </Text>
-        <Image source={{ uri: MyIp + props.i.imgFood }} style={styles.img} />
+        <Image
+          source={{ uri: MyIp + "/" + props.i.imgFood }}
+          style={styles.img}
+        />
         <View
           style={{
             width: "100%",
